@@ -83,6 +83,37 @@
                 Console.WriteLine($"{p.Name} - ${p.Price} (Stock: {p.Stock})");
             }
             #endregion
+
+            #region  Task 03 : Custom Report Generator
+
+            // 3.1  Print Reports 
+
+            static void PrintShortReport(product p)
+            {
+                Console.WriteLine($"{p.Name} - ${p.Price}");
+            }
+            static void PrintDetailedReport(product p)
+            {
+                Console.WriteLine($"[{p.Category}] {p.Name} | Price: ${p.Price} | Stock: {p.Stock}");
+            }
+            static void PrintReport(List<product> products, Action<product> reportAction)
+            {
+                foreach (var p in products)
+                {
+                    reportAction(p);
+                }
+            }
+
+            //Scenario 1
+            Console.WriteLine("=============================================");
+            Console.WriteLine("-------- Short Report --------");
+            PrintReport(catalog, PrintShortReport);
+
+            //Scenario 2
+            Console.WriteLine("\n------- Detailed Report ------");
+            PrintReport(catalog, PrintDetailedReport);
+            #endregion
+
         }
     }
 }
