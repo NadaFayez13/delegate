@@ -39,7 +39,7 @@
                 return p.Category == "Clothing" && p.Price < 100;
             }
 
-
+            // Using Func<product, bool>: Because we need to take a product and return a boolean condition.
             static List<product> SearchProducts(List<product> products, Func<product, bool> filter)
             {
                 List<product> result = new List<product>();
@@ -96,6 +96,8 @@
             {
                 Console.WriteLine($"[{p.Category}] {p.Name} | Price: ${p.Price} | Stock: {p.Stock}");
             }
+
+            // Using Action<product>: Because we just want to perform an action (printing) on each product without returning any value.
             static void PrintReport(List<product> products, Action<product> reportAction)
             {
                 foreach (var p in products)
@@ -112,6 +114,57 @@
             //Scenario 2
             Console.WriteLine("\n------- Detailed Report ------");
             PrintReport(catalog, PrintDetailedReport);
+            #endregion
+
+            #region Task 03 : Custom Report Generator
+            //3.2. Transform Products 
+
+            static string TransformToSummary(product p)
+            {
+                return $"{p.Name} (${p.Price})";
+            }
+
+            static string TransformToLabel(product p)
+            {
+                if (p.Price > 100)
+                {
+                    return $"{p.Name}: Expensive!";
+                }
+                else
+                {
+                    return $"{p.Name}: Affordable";
+                }
+            }
+
+            // Using Func<product, TResult>: Because we take a product and transform/return a new value (of type TResult).
+            static List<TResult> TransformProducts<TResult>(List<product> products, Func<product, TResult> transformer)
+            {
+                List<TResult> transformedList = new List<TResult>();
+
+                foreach (var p in products)
+                {
+                    transformedList.Add(transformer(p));
+                }
+                return transformedList;
+            }
+
+            Console.WriteLine("=============================================");
+
+            // Scenario 3
+            Console.WriteLine("-------------- Summary List ----------------");
+            var summaries = TransformProducts(catalog, TransformToSummary);
+            foreach (var s in summaries)
+            {
+                Console.WriteLine(s);
+            }
+
+            // Scenario 4
+            Console.WriteLine("\n------------ Price Labels --------------");
+            var labels = TransformProducts(catalog, TransformToLabel);
+            foreach (var l in labels)
+            {
+                Console.WriteLine(l);
+            }
             #endregion
 
         }
