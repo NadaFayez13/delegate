@@ -18,8 +18,6 @@
                 new product { Id = 10, Name = "Jacket", Category = "Clothing", Price = 120, Stock = 15 }
             };
 
-
-
             #region Task 01 : Smart Product Search
             static bool IsElectronic(product p)
             {
@@ -85,8 +83,6 @@
                 Console.WriteLine($"{p.Name} - ${p.Price} (Stock: {p.Stock})");
             }
             #endregion
-
-
         }
     }
 }
