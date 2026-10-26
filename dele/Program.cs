@@ -167,6 +167,39 @@
             }
             #endregion
 
+            #region Task 03 : Custom Report Generator
+            //3.3. Filter Products 
+            static bool IsLowStock(product p)
+            {
+                return p.Stock < 20;
+            }
+
+            // Using Predicate<product>: Because a Predicate is specifically used to take an object and return a boolean (true/false) condition for filtering.
+            static List<product> FilterProducts(List<product> products, Predicate<product> predicate)
+            {
+                List<product> result = new List<product>();
+                foreach (var p in products)
+                {
+                    if (predicate(p))
+                    {
+                        result.Add(p);
+                    }
+                }
+                return result;
+            }
+                Console.WriteLine("=============================================");
+
+            Console.WriteLine("------------ Low-Stock Alert -----------");
+
+            var lowStockProducts = FilterProducts(catalog, IsLowStock);
+            foreach (var p in lowStockProducts)
+            {
+                Console.WriteLine($"[LOW STOCK] {p.Name}: only {p.Stock} left!");
+            }
+
+
+            #endregion
+
         }
     }
 }
